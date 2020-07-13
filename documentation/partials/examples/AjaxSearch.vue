@@ -36,11 +36,13 @@ div
       )
     span(slot="noResult").
       Oops! No elements found. Consider changing the search query.
-    template(v-slot:afterList="{ afterSlotHighlighted, pointerSetAfterSlot }")
+    template(v-slot:afterList="{ afterSlotHighlighted, pointerSetAfterSlot, select }")
       li.multiselect__element.add-supplier-slot(
         v-if="searchQuery != ''"
         @mouseenter.self="pointerSetAfterSlot()"
         :class="{ 'multiselect__option--highlight': afterSlotHighlighted }"
+        @click="select(searchQuery, 'Enter')"
+        @keypress.enter.tab.prevent.stop.self="select(searchQuery, 'Enter')"
       )
         span.multiselect__option
           i.far.fa-plus-circle.m-r-5
