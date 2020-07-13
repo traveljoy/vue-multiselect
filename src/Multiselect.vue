@@ -299,6 +299,9 @@ export default {
       default: 0
     }
   },
+  mounted: function () {
+    console.log('hi mark 2')
+  },
   computed: {
     isSingleLabelVisible () {
       return (

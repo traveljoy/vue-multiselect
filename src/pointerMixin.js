@@ -18,6 +18,10 @@ export default {
     optionHeight: {
       type: Number,
       default: 40
+    },
+    wrapAroundPointer: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -72,7 +76,6 @@ export default {
       this.pointerReset()
     },
     pointerForward () {
-      /* istanbul ignore else */
       if (this.pointer < this.filteredOptions.length - 1) {
         this.pointer++
         /* istanbul ignore next */
@@ -85,6 +88,8 @@ export default {
           this.filteredOptions[this.pointer].$isLabel &&
           !this.groupSelect
         ) this.pointerForward()
+      } else if (this.wrapAroundPointer) {
+        this.pointer = 0
       }
       this.pointerDirty = true
     },
@@ -101,6 +106,8 @@ export default {
           this.filteredOptions[this.pointer].$isLabel &&
           !this.groupSelect
         ) this.pointerBackward()
+      } else if (this.wrapAroundPointer) {
+        this.pointer = this.filteredOptions.length - 1
       } else {
         /* istanbul ignore else */
         if (
