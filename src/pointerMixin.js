@@ -2,7 +2,8 @@ export default {
   data () {
     return {
       pointer: 0,
-      pointerDirty: false
+      pointerDirty: false,
+      afterSlotHighlighted: false
     }
   },
   props: {
@@ -20,6 +21,10 @@ export default {
       default: 40
     },
     wrapAroundPointer: {
+      type: Boolean,
+      default: false
+    },
+    includeAfterSlot: {
       type: Boolean,
       default: false
     }
@@ -76,6 +81,7 @@ export default {
       this.pointerReset()
     },
     pointerForward () {
+      this.afterSlotHighlighted = false
       if (this.pointer < this.filteredOptions.length - 1) {
         this.pointer++
         /* istanbul ignore next */
@@ -88,12 +94,16 @@ export default {
           this.filteredOptions[this.pointer].$isLabel &&
           !this.groupSelect
         ) this.pointerForward()
+      } else if (this.includeAfterSlot && this.pointer === this.filteredOptions.length - 1) {
+        this.pointer++
+        this.afterSlotHighlighted = true
       } else if (this.wrapAroundPointer) {
         this.pointer = 0
       }
       this.pointerDirty = true
     },
     pointerBackward () {
+      this.afterSlotHighlighted = false
       if (this.pointer > 0) {
         this.pointer--
         /* istanbul ignore else */
@@ -107,7 +117,12 @@ export default {
           !this.groupSelect
         ) this.pointerBackward()
       } else if (this.wrapAroundPointer) {
-        this.pointer = this.filteredOptions.length - 1
+        if (this.includeAfterSlot) {
+          this.pointer = this.filteredOptions.length
+          this.afterSlotHighlighted = true
+        } else {
+          this.pointer = this.filteredOptions.length - 1
+        }
       } else {
         /* istanbul ignore else */
         if (

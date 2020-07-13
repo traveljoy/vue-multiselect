@@ -21,6 +21,8 @@ div
     :max-height="600",
     :show-no-results="false",
     :hide-selected="true",
+    :wrapAroundPointer="true"
+    :includeAfterSlot="true"
     @search-change="asyncFind"
   )
     template(slot="tag", slot-scope="{ option, remove }")
@@ -34,42 +36,57 @@ div
       )
     span(slot="noResult").
       Oops! No elements found. Consider changing the search query.
+    template(slot='afterList', slot-scope="{ afterSlotHighlighted }")
+      li.multiselect__element.add-supplier-slot(
+        v-if="searchQuery != ''"
+        style='background-color: #f6f6f6; position: sticky; bottom: 0;'
+        @click=""
+        :class="{ 'multiselect__option--highlight': afterSlotHighlighted }"
+      )
+        span.multiselect__option
+          i.far.fa-plus-circle.m-r-5
+          span
+            | Add new supplier &quot;
+            strong {{ searchQuery }}
+            | &quot;
   pre.language-json
     code.
       {{ selectedCountries  }}
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
-import { ajaxFindCountry } from './countriesApi'
+import Multiselect from "vue-multiselect";
+import { ajaxFindCountry } from "./countriesApi";
 
 export default {
   components: {
     Multiselect
   },
-  data () {
+  data() {
     return {
       selectedCountries: [],
       countries: [],
-      isLoading: false
-    }
+      isLoading: false,
+      searchQuery: ""
+    };
   },
   methods: {
-    limitText (count) {
-      return `and ${count} other countries`
+    limitText(count) {
+      return `and ${count} other countries`;
     },
-    asyncFind (query) {
-      this.isLoading = true
+    asyncFind(query) {
+      this.isLoading = true;
+      this.searchQuery = query;
       ajaxFindCountry(query).then(response => {
-        this.countries = response
-        this.isLoading = false
-      })
+        this.countries = response;
+        this.isLoading = false;
+      });
     },
-    clearAll () {
-      this.selectedCountries = []
+    clearAll() {
+      this.selectedCountries = [];
     }
   }
-}
+};
 </script>
 
 <style lang="sass">
@@ -98,4 +115,9 @@ export default {
 
   &:after
     transform: rotate(-45deg)
+
+.add-supplier-slot
+  background-color: #f6f6f6
+  position: sticky
+  bottom: 0
 </style>

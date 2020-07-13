@@ -63,7 +63,7 @@
           @keyup.esc="deactivate()"
           @keydown.down.prevent="pointerForward()"
           @keydown.up.prevent="pointerBackward()"
-          @keypress.enter.prevent.stop.self="addPointerElement($event)"
+          @keypress.enter.tab.prevent.stop.self="addPointerElement($event)"
           @keydown.delete.stop="removeLastElement()"
           class="multiselect__input"
           :aria-controls="'listbox-'+id"
@@ -147,7 +147,7 @@
                 <slot name="noOptions">List is empty.</slot>
               </span>
             </li>
-            <slot name="afterList"></slot>
+            <slot name="afterList" :afterSlotHighlighted="afterSlotHighlighted"></slot>
           </ul>
         </div>
       </transition>
@@ -298,9 +298,6 @@ export default {
       type: Number,
       default: 0
     }
-  },
-  mounted: function () {
-    console.log('hi mark 2')
   },
   computed: {
     isSingleLabelVisible () {
