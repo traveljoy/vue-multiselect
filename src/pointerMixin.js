@@ -160,6 +160,11 @@ export default {
     pointerSet (index) {
       this.pointer = index
       this.pointerDirty = true
+      this.afterSlotHighlighted = false
+    },
+    pointerSetAfterSlot () {
+      this.pointerSet(this.filteredOptions.length)
+      this.afterSlotHighlighted = true
     }
   }
 }

@@ -329,6 +329,11 @@ export default {
     ) {
       this.select(this.filteredOptions[0])
     }
+
+    this.$on('highlight', function () {
+      console.log('got highlight!')
+      this.pointerSet(-1)
+    })
   },
   computed: {
     internalValue () {

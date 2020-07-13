@@ -36,11 +36,10 @@ div
       )
     span(slot="noResult").
       Oops! No elements found. Consider changing the search query.
-    template(slot='afterList', slot-scope="{ afterSlotHighlighted }")
+    template(v-slot:afterList="{ afterSlotHighlighted, pointerSetAfterSlot }")
       li.multiselect__element.add-supplier-slot(
         v-if="searchQuery != ''"
-        style='background-color: #f6f6f6; position: sticky; bottom: 0;'
-        @click=""
+        @mouseenter.self="pointerSetAfterSlot()"
         :class="{ 'multiselect__option--highlight': afterSlotHighlighted }"
       )
         span.multiselect__option
@@ -84,6 +83,10 @@ export default {
     },
     clearAll() {
       this.selectedCountries = [];
+    },
+    informMouseEnter () {
+      this.$emit('highlight')
+      console.log('mouseenter inside slot')
     }
   }
 };
