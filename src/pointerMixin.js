@@ -156,6 +156,12 @@ export default {
       ) {
         this.pointerForward()
       }
+
+      if (this.includeAfterSlot &&
+        this.filteredOptions.length === 0
+      ) {
+        this.pointerSetAfterSlot()
+      }
     },
     pointerSet (index) {
       this.pointer = index
