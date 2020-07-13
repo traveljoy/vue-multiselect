@@ -94,7 +94,7 @@ export default {
           this.filteredOptions[this.pointer].$isLabel &&
           !this.groupSelect
         ) this.pointerForward()
-      } else if (this.includeAfterSlot && this.pointer === this.filteredOptions.length - 1) {
+      } else if (this.includeAfterSlot && (this.pointer === this.filteredOptions.length - 1 || this.filteredOptions.length === 0)) {
         this.pointer++
         this.afterSlotHighlighted = true
       } else if (this.wrapAroundPointer) {
