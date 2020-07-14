@@ -37,10 +37,9 @@ div
     template(v-slot:afterList="{ afterSlotHighlighted, pointerSetAfterSlot, select }")
       li.multiselect__element.add-supplier-slot(
         v-if="searchQuery != ''"
-        @mouseenter.self="pointerSetAfterSlot()"
         :class="{ 'multiselect__option--highlight': afterSlotHighlighted }"
+        @mouseenter.self="pointerSetAfterSlot()"
         @click="select(searchQuery, 'Enter')"
-        @keypress.enter.tab.prevent.stop.self="select(searchQuery, 'Enter')"
       )
         span.multiselect__option
           i.far.fa-plus-circle.m-r-5
@@ -66,7 +65,8 @@ export default {
       selectedCountries: [],
       countries: [],
       isLoading: false,
-      searchQuery: ""
+      searchQuery: "",
+      selectFn: null
     };
   },
   methods: {
@@ -84,10 +84,6 @@ export default {
     clearAll() {
       this.selectedCountries = [];
     },
-    informMouseEnter () {
-      this.$emit('highlight')
-      console.log('mouseenter inside slot')
-    }
   }
 };
 </script>

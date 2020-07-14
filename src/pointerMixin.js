@@ -75,7 +75,9 @@ export default {
     },
     addPointerElement ({ key } = 'Enter') {
       /* istanbul ignore else */
-      if (this.filteredOptions.length > 0) {
+      if (this.afterSlotHighlighted) {
+        this.select(this.$refs.search.value, key)
+      } else if (this.filteredOptions.length > 0) {
         this.select(this.filteredOptions[this.pointer], key)
       }
       this.pointerReset()
