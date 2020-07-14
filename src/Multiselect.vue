@@ -149,7 +149,7 @@
                 <slot name="noOptions">List is empty.</slot>
               </span>
             </li>
-            <slot name="afterList" :afterSlotHighlighted="afterSlotHighlighted" :pointerSetAfterSlot="pointerSetAfterSlot" :select="select"></slot>
+            <slot name="afterList" :afterSlotHighlighted="afterSlotHighlighted" :pointerSetAfterSlot="pointerSetAfterSlot"></slot>
           </ul>
         </div>
       </transition>

@@ -340,7 +340,6 @@ export default {
     }
 
     this.$on('highlight', function () {
-      console.log('got highlight!')
       this.pointerSet(-1)
     })
   },
@@ -512,7 +511,6 @@ export default {
      * @param  {Boolean} block removing
      */
     select (option, key) {
-      console.log(`option: ${option}, key: ${key}, pointerDirty: ${this.pointerDirty}`)
       /* istanbul ignore else */
       if (option.$isLabel && this.groupSelect) {
         this.selectGroup(option)
