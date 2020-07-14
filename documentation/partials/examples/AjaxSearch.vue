@@ -9,12 +9,9 @@ div
     placeholder="Type to search",
     open-direction="bottom",
     :options="countries",
-    :multiple="true",
     :searchable="true",
     :loading="isLoading",
     :internal-search="false",
-    :clear-on-select="false",
-    :close-on-select="false",
     :options-limit="300",
     :limit="3",
     :limit-text="limitText",
@@ -23,6 +20,7 @@ div
     :hide-selected="true",
     :wrapAroundPointer="true"
     :includeAfterSlot="true"
+    :showSelectedOptionAsSearch="true"
     @search-change="asyncFind"
   )
     template(slot="tag", slot-scope="{ option, remove }")

@@ -315,6 +315,15 @@ export default {
     preselectFirst: {
       type: Boolean,
       default: false
+    },
+    /**
+     * Show the selected option as highlighted
+     * @default false
+     * @type {Boolean}
+     */
+    showSelectedOptionAsSearch: {
+      type: Boolean,
+      default: false
     }
   },
   mounted () {
@@ -662,8 +671,9 @@ export default {
       this.isOpen = true
       /* istanbul ignore else  */
       if (this.searchable) {
-        if (!this.preserveSearch) this.search = ''
-        this.$nextTick(() => this.$refs.search && this.$refs.search.focus())
+        if (!this.preserveSearch) { this.search = '' }
+        if (this.showSelectedOptionAsSearch) { this.search = this.getOptionLabel(this.internalValue[0]) }
+        this.$nextTick(() => this.$refs.search && this.$refs.search.select() && this.$refs.search.focus())
       } else {
         this.$el.focus()
       }
